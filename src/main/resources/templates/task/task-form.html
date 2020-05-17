@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<!--/* Title of this template will be passed to the head fragment along with custom links and scripts */-->
+<head th:replace="task/layout :: head(~{this :: title}, ~{this :: .custom-link})">
+    <title>Task Form</title>
+    
+    <!-- Custom links for this page only -->
+    <link class="custom-link" href="../../../resources/css/task/task.css" th:href="@{/resources/css/task/task.css}" />
+</head>  
+<body>
+
+<!--/* The element with breadcrumb class will be passed to the header fragment */-->
+<header th:insert="task/layout :: header(~{ :: .breadcrumb})">
+    <ol class="breadcrumb container">
+        <li><a href="#">Home</a></li>
+        <li><a href="#" th:href="@{/task}">Tasks</a></li>        
+    </ol>
+</header>
+
+<!--/* Insert content fragment with content of the element with id = 'task-details' */-->
+<div th:insert="task/layout :: content(~{ :: #task-create})">
+    <div id="task-create">
+    	<div class="hidden" id="successMessageDiv">
+	        <div th:replace="fragments/alert :: alert (type='info', message=#{data.submitted.success})">Working</div>
+	    </div>
+        <div id="taskFormDiv" th:object="${task}" th:fragment="taskFormFragment">
+			<form id="addTaskForm" class="form-narrow form-horizontal" action="save" method="post">				
+				<input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+				<input type="hidden" name="id" th:value="*{id}" />
+				
+				<!--/* Show general error message when form contains errors */-->
+			    <th:block th:if="${#fields.hasErrors('${task.*}')}">
+			        <div th:replace="fragments/alert :: alert (type='danger', message=#{form.contains.errors})">Alert</div>
+			    </th:block>
+			    
+				<fieldset>
+			        <legend>Task Form</legend>
+			        <div class="form-group">
+			            <label for="title" class="col-lg-2 control-label">Title</label>
+			            <div class="col-lg-10" th:classappend="${#fields.hasErrors('title')}? 'has-error'">
+			                <input type="text" class="form-control" id="title" placeholder="Title" th:field="*{title}"/>
+			                <span class="help-block" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Incorrect title</span>						                			                			              
+			            </div>
+			        </div>  
+			        <div class="form-group">
+			            <label for="text" class="col-lg-2 control-label">Text</label>
+			            <div class="col-lg-10" th:classappend="${#fields.hasErrors('text')}? 'has-error'">
+			                <input type="text" class="form-control" id="text" placeholder="Text" th:field="*{text}" />			
+			               	<span class="help-block" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Incorrect text</span>		               
+			            </div>
+			        </div>  
+			        
+			        
+			        <div class="form-group">
+			            <label for="dueTo" class="col-lg-2 control-label">Due To</label>
+			            <div class="col-lg-10" th:classappend="${#fields.hasErrors('dueTo')}? 'has-error'">
+			                <input type="date" class="form-control" id="dueTo" th:placeholder="#{date.format}" th:field="*{dueTo}" />	
+			                <span class="help-block" th:if="${#fields.hasErrors('dueTo')}" th:errors="*{dueTo}">Incorrect dueTo</span>				               
+			            </div>
+			        </div>   	
+			        
+			        <div class="form-group">
+			            <div class="col-lg-offset-2 col-lg-10">
+			                <button id="doSave" type="button" onclick="$(this).doSave()" class="btn btn-primary">Submit</button> 		
+			                <button type="button" class="btn btn-default" onclick="$(this).clearForm()">Clear</button>
+			            </div>				            
+			        </div>		        			        			            
+			    </fieldset>						    			      
+			</form>
+			
+		</div>			
+    </div>
+</div>
+<th:block th:replace="task/layout :: script(~{this :: .custom-script})">
+    <!-- Custom scripts for this page only -->
+    <script class="custom-script" src="../../../resources/js/task/task.js" th:src="@{/resources/js/task/task.js}"></script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,13 @@
+  
+###############################################################################
+# Set the language of a repository on GitHub.
+###############################################################################
+*.java linguist-detectable=true
+*.js linguist-detectable=false
+*.html linguist-detectable=true
+*.xml linguist-detectable=false
+
+###############################################################################
+# Set default behavior to automatically normalize line endings.
+###############################################################################
+* text=auto

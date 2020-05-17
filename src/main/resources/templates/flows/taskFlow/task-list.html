@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org">
+	
+<!--/* Title of this template will be passed to the head fragment along with custom links and scripts */-->
+<head th:replace="task/layout :: head(~{this :: title}, ~{this :: .custom-link})">
+    <title>Task List</title>
+    
+    <!-- Custom links for this page only -->
+    <link class="custom-link" href="../../../resources/css/task/task.css" th:href="@{/resources/css/task/task-list.css}" />
+</head>
+<body tiles:fragment="content">
+
+	<!--/* The element with breadcrumb class will be passed to the header fragment */-->
+	<header th:insert="task/layout :: header(~{ :: .breadcrumb})">
+	    <ol class="breadcrumb container">
+	        <li><a href="#">Home</a></li>
+	        <li><a href="#">Tasks</a></li>
+	    </ol>
+	</header>
+
+	<!--/* Insert content fragment with content of the element with id = 'task-list' */-->
+	<div th:insert="task/layout :: content(~{ :: #task-page})">	
+	    <div id="task-page">
+	    	
+	    	<div id="task-list">
+	    		<!-- action form -->
+		    	<form id="actionsTaskTableForm" method="get" action="">
+			    	<p>
+				        <!-- <a id="do_Update" class="btn btn-success btn-lg" th:href="@{'~' + ${flowExecutionUrl} + '&_eventId_addTask'}">Add New Task</a> -->
+				        <input class="btn btn-success" type="submit" id="doRefresh" name="_eventId_refresh" value="Refresh"/> 	
+				        
+				        <input id="toggleTaskFormChkBox" type="checkbox" data-toggle="toggle" data-on="Add New Task" data-off="Close" checked/>				        
+				        <!-- <input class="hide" type="submit" id="doAddTask" name="_eventId_addTask" value="Add New Task"/>  --> 
+				        <input class="hide" type="submit" id="saveTask" name="_eventId_saveTask" value="Save"/>
+				        
+				        <input class="hide" type="submit" id="deleteTask" name="_eventId_deleteTask" value="delete"/>
+				        		 		        					        				            	     
+				    </p>
+			    </form>	
+			    
+			    <!--/* Show general error message when form contains errors */-->
+			    <div id="globalMessage" th:fragment="globalMessageFragment">
+			    	<th:block th:if="${flowRequestContext.messageContext.allMessages.length > 0}">	
+				    	<th:block th:if="${taskModel.hasErrors}">			    																  
+					        <div th:replace="fragments/alert :: alert (type='danger', message=#{form.contains.count.errors(${flowRequestContext.messageContext.allMessages.length})})">Alert</div>
+					    </th:block>
+					    <th:block th:if="${!taskModel.hasErrors}">
+					        <div th:replace="fragments/alert :: alert (type='info', message=#{data.submitted.success})">Working</div>
+					    </th:block>
+				    </th:block>
+			    </div>
+			    
+			    <!-- task form fragment -->	    
+				<div id="taskFormDiv" th:object="${taskModel.task}" th:class="${taskModel.showTaskForm == true}?'show':'hidden'" th:fragment="taskFormFragment">
+					<form id="taskForm" class="form-narrow form-horizontal" method="get" action="">
+						<input type="hidden" id="taskId" th:field="*{id}"/>						
+					    <fieldset>
+					        <legend>Add New Task</legend>
+					        <div class="form-group">
+					            <label for="title" class="col-lg-2 control-label">Title</label>
+					            <div class="col-lg-10" th:classappend="${#arrays.length(flowRequestContext.messageContext.getMessagesBySource('title'))>0}? has-error">
+					                <input type="text" class="form-control" id="title" placeholder="Title" th:field="*{title}"/>
+					                <p class="help-block" th:each="err : ${flowRequestContext.messageContext.getMessagesBySource('title')}" th:text="${err.text}">Input is invalid</p>						                			                			              
+					            </div>
+					        </div>  
+					        <div class="form-group">
+					            <label for="text" class="col-lg-2 control-label">Text</label>
+					            <div class="col-lg-10" th:classappend="${#arrays.length(flowRequestContext.messageContext.getMessagesBySource('text'))>0}? has-error">
+					                <input type="text" class="form-control" id="text" placeholder="Text" th:field="*{text}" />			
+					                <p class="help-block" th:each="err : ${flowRequestContext.messageContext.getMessagesBySource('text')}" th:text="${err.text}">Input is invalid</p>		               
+					            </div>
+					        </div>  
+					        
+					        
+					        <div class="form-group">
+					            <label for="dueTo" class="col-lg-2 control-label">Due To</label>
+					            <div class="col-lg-10" th:classappend="${#arrays.length(flowRequestContext.messageContext.getMessagesBySource('dueTo'))>0}? has-error">
+					                <input type="date" class="form-control" id="dueTo" th:placeholder="#{date.format}" th:field="*{dueTo}" />	
+					                <p class="help-block" th:each="err : ${flowRequestContext.messageContext.getMessagesBySource('dueTo')}" th:text="${err.text}">Input is invalid</p>				               
+					            </div>
+					        </div>   
+					        
+					        
+					        <div class="form-group">
+					            <div class="col-lg-offset-2 col-lg-10">
+					                <!-- <a id="saveTask" th:href="@{'~' + ${flowExecutionUrl} + '&_eventId_saveTask'}">Save</a>
+					                 -->  
+					                 <button id="fakeSaveBtn" type="button" class="btn btn-primary" onclick="$(this).doSave()">Save</button> 
+					                 <button id="fakeCloseBtn" type="button" class="btn btn-default" onclick="$(this).doClose()">Close</button> 
+					            </div>				            
+					        </div>      
+					    </fieldset>					    					    			     
+					</form>
+					
+			   	</div><!-- End of taskFormFragment -->   	
+			   	
+			   	<!-- task list table fragment -->	 
+			    <div class="table-responsive" id="taskTable" th:fragment="taskTableFragment">
+				    <table class="table table-bordered table-striped">
+				    	<caption th:text="${'Last refresh time-stamp: ' + taskModel.currentDate}">Fri Apr 10 16:37:18 GMT-05:00 2020</caption>
+			            <thead>
+				            <tr>
+				                <td>ID</td>
+				                <td>Title</td>
+				                <td>Text</td>
+				                <td>Due to</td>
+				                <td>Actions</td>
+				            </tr>
+			            </thead>
+			            
+			            <tbody>
+				            <tr th:if="${taskModel.tasks.empty}">
+				                <td colspan="4">No tasks</td>
+				            </tr>
+				            <tr th:each="task : ${taskModel.tasks}">
+				                <td th:text="${task.id}">1 /td>
+				                <td>
+				                    <a th:href="@{'~' + ${flowExecutionUrl} + '&_eventId_setTask&taskId=' + ${task.id}}" th:text="${task.title}" title="Click to view Task detail">Title ...</a>
+				                </td>
+				                <td th:text="${task.text}">Text ...</td>
+				                <!-- <td th:text="${#calendars.format(task.dueTo)}">July 11, 2017 2:17:16 PM CDT</td> -->
+				                <td th:text="${task.dueTo}">July 11, 2017 2:17:16 PM CDT</td>
+				                <td>
+				                	<a th:href="@{'~' + ${flowExecutionUrl} + '&_eventId_setTask&taskId=' + ${task.id}}" class="btn btn-primary" title="Click to view Task detail">
+				                		<span class="glyphicon glyphicon-eye-open"></span>
+									</a>
+									&#160;
+				                	<button id="fakeDeleteBtn" type="button" class="btn btn-danger" 
+				                		onclick="$(this).doDelete(this.name)" title="Click to remove Task!!!"
+				                		th:name="${task.id}">
+				                		<span class="glyphicon glyphicon-trash"></span>
+									</button>
+									
+				                </td>
+				            </tr>
+			            </tbody>
+			        
+			        	<tfoot>
+				            <tr>
+				                <td>ID</td>
+				                <td>Title</td>
+				                <td>Text</td>
+				                <td>Due to</td>
+				                <td>Actions</td>
+				            </tr>
+			            </tfoot>
+			        </table>	        	        
+			    </div>			   
+	        </div>
+	        		
+	    </div>
+		
+	</div>
+
+	<footer th:replace="task/layout :: footer">Footer</footer>
+
+	<th:block th:replace="task/layout :: script(~{this :: .custom-script})">
+	    <!-- Custom scripts for this page only -->
+	    <script class="custom-script" src="../../../resources/js/task/task-list.js" th:src="@{/resources/js/task/task-list.js}"></script>
+	</th:block>
+</body>
+</html>

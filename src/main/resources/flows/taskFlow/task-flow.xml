@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+      	http://www.springframework.org/schema/webflow
+      	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<on-start>
+		<evaluate expression="taskHandler.init()"
+			result="flowScope.taskModel" />
+		
+		<!-- declaring this flow scope variable to handle active menu - check the header.html file  -->
+		<set name="flowScope.module" value="'tasks-flow'"/>
+	</on-start>
+
+	<view-state id="taskList" view="flows/taskFlow/task-list"  model="flowScope.taskModel">
+		<secured attributes="ROLE_USER" />
+	
+		<!-- triggered by "setTask" event to move to the "viewTask" state -->
+		<transition on="setTask" to="setTask" validate="false"/>
+		
+		
+		<!-- request partial re-rendering of the current view after handling the event -->
+		<transition on="refresh" validate="false">
+		    <evaluate expression="taskHandler.findAll(flowScope.taskModel)" />
+		    <render fragments="taskTableFragment" /> 
+		</transition>
+		
+		<!-- request partial re-rendering of the current view after handling the event -->
+		<!-- 
+		<transition on="addTask" validate="false">
+		   	<evaluate expression="taskHandler.addNewTask(flowScope.taskModel)" /> 
+		    <render fragments="taskFormFragment, globalMessageFragment" />		    
+		</transition>
+		-->
+		
+		<!-- request partial re-rendering of the current view after handling the event -->
+		<transition on="saveTask" validate="false">
+		    <!-- <evaluate expression="taskHandler.saveTask(flowScope.taskModel, flowRequestContext)" /> -->
+		    <evaluate expression="taskHandler.saveTask(flowScope.taskModel, messageContext)" />
+		    <render fragments="taskTableFragment, taskFormFragment, globalMessageFragment" />
+		</transition>
+		
+		<!-- request partial re-rendering of the current view after handling the event -->
+		<transition on="deleteTask" validate="false">
+		    <evaluate expression="taskHandler.deleteTask(flowScope.taskModel, messageContext)" />
+		    <render fragments="taskTableFragment, taskFormFragment, globalMessageFragment" />		    
+		</transition>
+		
+	</view-state>
+	
+	<action-state id="setTask">
+		<evaluate expression="taskHandler.setTask(flowScope.taskModel, requestParameters.taskId)" />
+		
+		<!-- triggered by "success" event to move to the "taskView" state -->
+		<transition on="success" to="taskView"/>		
+	</action-state>
+	
+	<!-- this is a regular view state rendering another form view -->	
+	<view-state id="taskView" view="flows/taskFlow/task" model="flowScope.taskModel">
+		<secured attributes="ROLE_USER" />
+		
+		<transition on="viewTaskList" to="taskList"/>
+	</view-state>
+	
+	<end-state id="error" view="flows/shared/error" />
+	
+	<!-- global transition -->
+	<global-transitions>
+		<!-- triggered by any thrown exception event to move to the "error" state from any flow state and end the flow -->
+ 		<transition on-exception="java.lang.Exception" to="error" />
+	</global-transitions>
+	
+	
+	
+</flow>
