@@ -31,6 +31,7 @@ For the Database, this project using H2Database for simplicity of installation a
 		And the usage of these new features can be found in the following path:
 		"AjaxThymeleaf\thymeleaf-layouts-webflow-ajax-security\src\main\resources\static\js\task\task-list.js".
 	5- Building a small Rest API using Spring best practices.
+	6- Using Junit Jupiter to test services and MVC controllers, and applying best practices in organizing the test classes.
 
 ## Following is a sample code from "task-list.js" file:		
 ```javascript
