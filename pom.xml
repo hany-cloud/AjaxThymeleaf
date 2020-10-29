@@ -23,7 +23,7 @@
 		<spring-webflow.version>2.5.1.RELEASE</spring-webflow.version>
 		<spring-js.version>2.4.8.RELEASE</spring-js.version>
 		<modelmapper.version>2.3.7</modelmapper.version>
-		<commons.beanutils.version>1.9.3</commons.beanutils.version>
+		<commons.beanutils.version>1.9.4</commons.beanutils.version>
 	</properties>
 
 	<dependencies>
