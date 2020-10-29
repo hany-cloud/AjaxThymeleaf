@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.web.controller.api.v1;
+package net.hka.examples.thymeleaf.web.rest.api.controller;
 
 import java.security.Principal;
 import java.util.Optional;

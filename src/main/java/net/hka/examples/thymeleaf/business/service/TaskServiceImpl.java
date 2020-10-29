@@ -1,5 +1,7 @@
 package net.hka.examples.thymeleaf.business.service;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,7 +29,7 @@ public class TaskServiceImpl implements TaskService {
     private TaskRepository taskRepository;
 
     @PostConstruct
-    private void initialize() {
+    private void initialize() throws ParseException {
     	// Dummy data to initialize database with
         this.initDataTable(new Task("Shopping", "Buy Milk and Butter...", BaseModel.toDate("01/01/2017")));
         this.initDataTable(new Task("Books", "Read 'Lords of The Ring'", BaseModel.toDate("02/01/2017")));
@@ -42,10 +44,20 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Transactional
     public TaskDto save(TaskDto taskDto) {
-    	if(taskDto == null) throw new IllegalArgumentException();
-    	Task task = new Task(taskDto.getId(), taskDto.getTitle(), taskDto.getText(), BaseModel.toDate(taskDto.getDueTo()));
-    	Task newTask = taskRepository.save(task);
-    	return modelMapper.map(newTask, TaskDto.class);
+    	if(taskDto == null) throw new IllegalArgumentException("The paremter is null");
+    	
+    	Date dueDate = new Date();
+    	try {
+    		dueDate = BaseModel.toDate(taskDto.getDueTo());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		Task task = new Task(taskDto.getId(), taskDto.getTitle(), taskDto.getText(), dueDate);
+		Task newTask = taskRepository.save(task);
+		return modelMapper.map(newTask, TaskDto.class);
+    	
+    	
 	}
     
     

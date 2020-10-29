@@ -1,5 +1,6 @@
 package net.hka.examples.thymeleaf.web.controller;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.validation.Valid;
@@ -213,7 +214,12 @@ class TaskController {
 				.orElseThrow(() -> new TaskNotFoundException(id));
 		
 		// add task attribute to the model
-		task.setDueTo(BaseModel.dateFormat(task.getDueTo()));
+		try {
+			task.setDueTo(BaseModel.dateFormat(task.getDueTo()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		model.addAttribute("task", task);
 	}
 }

@@ -15,6 +15,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -90,7 +91,7 @@ class TaskServiceTest {
             private TaskDto taskDto;
             
 			@BeforeEach
-            void repositorySaveTask() {
+            void repositorySaveTask() throws ParseException {
 				Task task = new Task(TITLE, TEXT, BaseModel.toDate(DUE));
 				Task savedTask = new Task(TITLE, TEXT, BaseModel.toDate(DUE));
 				savedTask.setId(TASK_ID);
@@ -216,7 +217,7 @@ class TaskServiceTest {
 			private static final String TASK_TWO_DUE = "2021-07-20";
 			
 			@BeforeEach
-            void repositoryReturnsTwoTasks() {
+            void repositoryReturnsTwoTasks() throws ParseException {
 				TaskDto firstDto = new TaskDto(); 
 				firstDto.setTitle(TASK_ONE_TITLE);
 				firstDto.setText(TASK_ONE_TEXT);
@@ -354,7 +355,7 @@ class TaskServiceTest {
             private static final String DUE = "2020-05-01";
             
             @BeforeEach
-            void repositoryReturnsTaskItem() {
+            void repositoryReturnsTaskItem() throws ParseException {
         		Optional<Task> task = Optional.of(new Task(TITLE, TEXT, BaseModel.toDate(DUE)));
         		task.get().setId(TASK_ID);
         		when(taskRepository.findById(Mockito.anyLong())).thenReturn(task);

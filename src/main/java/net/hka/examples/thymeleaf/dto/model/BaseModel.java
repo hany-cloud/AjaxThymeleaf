@@ -15,27 +15,16 @@ public interface BaseModel {
 	// this fixed format is always returned from any input control with type "date"
 	String PARSED_DATE_FORMAT = "yyyy-MM-dd";
 	
-	public static Date toDate(final String dateString) {
+	public static Date toDate(final String dateString) throws ParseException {
+		if(dateString.isEmpty()) throw new IllegalArgumentException("String date parameter is empty or null");
 		SimpleDateFormat sdf = new SimpleDateFormat(PARSED_DATE_FORMAT);//"yyyy.MM.dd HH:mm:ss"
-        try {
-            return sdf.parse(dateString);
-        } catch (ParseException e) {
-        	return null;
-        }
+		return sdf.parse(dateString);
     }
 	
-	public static String dateFormat(final String dateString) {
+	public static String dateFormat(final String dateString) throws ParseException {
+		if(dateString.isEmpty()) throw new IllegalArgumentException("String date parameter is empty or null");
 		SimpleDateFormat sdf = new SimpleDateFormat(PARSED_DATE_FORMAT);//"yyyy.MM.dd HH:mm:ss"
-		try {
-			if(dateString != null) {
-				Date date = sdf.parse(dateString);
-	            return sdf.format(date);
-			}
-            
-        } catch (ParseException e) {
-        	return null;
-        }
-		
-		return "";
+		Date date = sdf.parse(dateString);
+        return sdf.format(date);			
     }
 }

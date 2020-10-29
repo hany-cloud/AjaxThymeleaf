@@ -1,7 +1,7 @@
-package net.hka.examples.thymeleaf.web.controller.api.v1;
+package net.hka.examples.thymeleaf.web.rest.api.controller;
 
-import static org.springframework.hateoas.server.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.net.URISyntaxException;
 import java.util.List;
@@ -25,51 +25,50 @@ import org.springframework.web.bind.annotation.RestController;
 import net.hka.examples.thymeleaf.business.service.TaskService;
 import net.hka.examples.thymeleaf.dto.model.TaskDto;
 import net.hka.examples.thymeleaf.error.exception.TaskNotFoundException;
+import net.hka.examples.thymeleaf.web.rest.api.TaskModelAssembler;
 
 /**
  * Hypermedia-Driven RESTful Web Service to handle all CRUD operations for the task items
  */
 @RestController
-@RequestMapping("/api/v1/todo")
+@RequestMapping("todo/v1/tasks")
 @Secured("ROLE_USER")
-class TaskRestController {
+public class TaskApiController {
 
 	private final TaskService taskService;
 
 	private final TaskModelAssembler assembler;
 
-	TaskRestController(TaskService taskService, TaskModelAssembler assembler) {
+	TaskApiController(TaskService taskService, TaskModelAssembler assembler) {
 		this.taskService = taskService;
 		this.assembler = assembler;
 	}
 	
 	// Aggregate root
-
-	@SuppressWarnings("deprecation")
-	@GetMapping("/tasks")
-	CollectionModel<EntityModel<TaskDto>> all() {
+	@GetMapping
+	public CollectionModel<EntityModel<TaskDto>> all() {
 		List<EntityModel<TaskDto>> taskDtos = StreamSupport.stream(taskService.findAll().spliterator(), false)
 				.map(assembler::toModel).collect(Collectors.toList());
 
-		return new CollectionModel<>(taskDtos, linkTo(methodOn(TaskRestController.class).all()).withSelfRel());
+		return new CollectionModel<>(taskDtos, linkTo(methodOn(TaskApiController.class).all()).withSelfRel());
+	}
+	
+	// Single item
+	@GetMapping("/{id}")
+	public EntityModel<TaskDto> one(@PathVariable Long id) {
+		TaskDto taskDto = taskService.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
+		return assembler.toModel(taskDto);
 	}
 
-	@PostMapping("/tasks")
+
+	@PostMapping
 	ResponseEntity<?> newTask(@RequestBody TaskDto newTaskDto) throws URISyntaxException {
 		EntityModel<TaskDto> entityModel = assembler.toModel(taskService.save(newTaskDto));
 
 		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
 	}
-
-	// Single item
-
-	@GetMapping("/tasks/{id}")
-	EntityModel<TaskDto> one(@PathVariable Long id) {
-		TaskDto taskDto = taskService.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
-		return assembler.toModel(taskDto);
-	}
-
-	@PutMapping("/tasks/{id}")
+	
+	@PutMapping("/{id}")
 	ResponseEntity<?> replaceTask(@RequestBody TaskDto newTaskDto, @PathVariable Long id) throws URISyntaxException {
 
 		TaskDto updatedTaskDto = taskService.findById(id).map(taskDto -> {
@@ -87,7 +86,7 @@ class TaskRestController {
 		return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
 	}
 
-	@DeleteMapping("/tasks/{id}")
+	@DeleteMapping("/{id}")
 	ResponseEntity<?> deleteTask(@PathVariable Long id) {
 		taskService.delete(id);
 		return ResponseEntity.noContent().build();
