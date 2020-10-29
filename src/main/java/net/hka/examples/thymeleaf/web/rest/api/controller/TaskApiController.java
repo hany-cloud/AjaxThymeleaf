@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.hka.examples.thymeleaf.business.service.TaskService;
-import net.hka.examples.thymeleaf.dto.model.TaskDto;
+import net.hka.examples.thymeleaf.dto.TaskDto;
 import net.hka.examples.thymeleaf.error.exception.TaskNotFoundException;
 import net.hka.examples.thymeleaf.web.rest.api.TaskModelAssembler;
 

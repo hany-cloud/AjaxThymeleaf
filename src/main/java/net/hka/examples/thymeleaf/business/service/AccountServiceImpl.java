@@ -21,9 +21,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.hka.examples.thymeleaf.business.model.Account;
-import net.hka.examples.thymeleaf.business.model.UserRole;
-import net.hka.examples.thymeleaf.dto.model.AccountDto;
+import net.hka.examples.thymeleaf.business.domain.Account;
+import net.hka.examples.thymeleaf.business.domain.UserRole;
+import net.hka.examples.thymeleaf.dto.AccountDto;
 import net.hka.examples.thymeleaf.util.IterableUtil;
 
 @Service("AccountService")

@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import net.hka.examples.thymeleaf.business.model.UserRole;
+import net.hka.examples.thymeleaf.business.domain.UserRole;
 import net.hka.examples.thymeleaf.business.service.AccountService;
-import net.hka.examples.thymeleaf.dto.model.AccountDto;
+import net.hka.examples.thymeleaf.dto.AccountDto;
 import net.hka.examples.thymeleaf.web.support.AjaxUtils;
 import net.hka.examples.thymeleaf.web.support.MessageHelper;
 

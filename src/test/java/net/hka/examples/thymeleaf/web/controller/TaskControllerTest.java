@@ -30,8 +30,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import net.hka.examples.thymeleaf.business.service.TaskService;
-import net.hka.examples.thymeleaf.dto.model.BaseModel;
-import net.hka.examples.thymeleaf.dto.model.TaskDto;
+import net.hka.examples.thymeleaf.dto.BaseModel;
+import net.hka.examples.thymeleaf.dto.TaskDto;
 import net.hka.examples.thymeleaf.error.exception.TaskNotFoundException;
 
 class TaskControllerTest {

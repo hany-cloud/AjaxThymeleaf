@@ -19,9 +19,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import net.hka.examples.thymeleaf.business.model.Account;
-import net.hka.examples.thymeleaf.business.model.UserRole;
-import net.hka.examples.thymeleaf.dto.model.AccountDto;
+import net.hka.examples.thymeleaf.business.domain.Account;
+import net.hka.examples.thymeleaf.business.domain.UserRole;
+import net.hka.examples.thymeleaf.dto.AccountDto;
 
 @DisplayName("When running The Test for AccountService Class")
 @ExtendWith(MockitoExtension.class)

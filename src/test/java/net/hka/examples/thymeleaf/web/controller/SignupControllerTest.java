@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import net.hka.examples.thymeleaf.business.service.AccountService;
-import net.hka.examples.thymeleaf.dto.model.AccountDto;
+import net.hka.examples.thymeleaf.dto.AccountDto;
 
 
 public class SignupControllerTest {

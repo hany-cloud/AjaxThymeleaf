@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.business.model;
+package net.hka.examples.thymeleaf.business.domain;
 
 public enum UserRole {
 	USER("ROLE_USER"), ADMIN("ROLE_ADMIN");

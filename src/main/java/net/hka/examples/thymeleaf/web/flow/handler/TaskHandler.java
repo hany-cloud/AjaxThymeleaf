@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import net.hka.examples.thymeleaf.business.service.TaskService;
 import net.hka.examples.thymeleaf.constraint.ModelValidator;
-import net.hka.examples.thymeleaf.dto.model.TaskDto;
+import net.hka.examples.thymeleaf.dto.TaskDto;
 import net.hka.examples.thymeleaf.web.flow.model.TaskModel;
 
 @Component

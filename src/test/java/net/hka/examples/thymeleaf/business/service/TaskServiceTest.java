@@ -32,9 +32,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import net.hka.examples.thymeleaf.business.model.Task;
-import net.hka.examples.thymeleaf.dto.model.BaseModel;
-import net.hka.examples.thymeleaf.dto.model.TaskDto;
+import net.hka.examples.thymeleaf.business.domain.Task;
+import net.hka.examples.thymeleaf.dto.BaseModel;
+import net.hka.examples.thymeleaf.dto.TaskDto;
 import net.hka.examples.thymeleaf.error.exception.TaskNotFoundException;
 
 @DisplayName("When running the test for TaskService Class")

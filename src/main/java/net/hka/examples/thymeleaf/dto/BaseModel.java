@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.dto.model;
+package net.hka.examples.thymeleaf.dto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

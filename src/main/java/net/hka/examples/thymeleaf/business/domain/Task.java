@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.business.model;
+package net.hka.examples.thymeleaf.business.domain;
 
 import java.util.Calendar;
 import java.util.Date;

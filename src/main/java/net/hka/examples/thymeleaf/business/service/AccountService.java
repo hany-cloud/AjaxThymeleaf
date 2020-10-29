@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import net.hka.examples.thymeleaf.business.model.Account;
-import net.hka.examples.thymeleaf.dto.model.AccountDto;
+import net.hka.examples.thymeleaf.business.domain.Account;
+import net.hka.examples.thymeleaf.dto.AccountDto;
 
 public interface AccountService extends UserDetailsService {
 		

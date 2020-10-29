@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.hka.examples.thymeleaf.business.model.Task;
-import net.hka.examples.thymeleaf.dto.model.BaseModel;
-import net.hka.examples.thymeleaf.dto.model.TaskDto;
+import net.hka.examples.thymeleaf.business.domain.Task;
+import net.hka.examples.thymeleaf.dto.BaseModel;
+import net.hka.examples.thymeleaf.dto.TaskDto;
 import net.hka.examples.thymeleaf.util.IterableUtil;
 
 @Service("TaskService")
