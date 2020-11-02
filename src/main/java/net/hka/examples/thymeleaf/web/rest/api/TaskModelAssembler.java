@@ -7,11 +7,12 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
 
-import net.hka.examples.thymeleaf.dto.TaskDto;
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
 import net.hka.examples.thymeleaf.web.rest.api.controller.TaskApiController;
 
 @Component
 public class TaskModelAssembler implements RepresentationModelAssembler<TaskDto, EntityModel<TaskDto>> {
+	
 	@Override
 	public EntityModel<TaskDto> toModel(TaskDto taskDto) {
 		

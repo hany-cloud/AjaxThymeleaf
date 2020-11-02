@@ -21,10 +21,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.hka.common.util.IterableUtil;
 import net.hka.examples.thymeleaf.business.domain.Account;
 import net.hka.examples.thymeleaf.business.domain.UserRole;
-import net.hka.examples.thymeleaf.dto.AccountDto;
-import net.hka.examples.thymeleaf.util.IterableUtil;
+import net.hka.examples.thymeleaf.business.dto.AccountDto;
+import net.hka.examples.thymeleaf.business.repository.AccountRepository;
 
 @Service("AccountService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -41,12 +42,14 @@ class AccountServiceImpl implements AccountService {
 
 	@PostConstruct
 	private void initialize() {
+		
 		// Dummy data to initialize database with
 		this.initDataTable(new Account("user", "demo", UserRole.USER.getValue()));
 		this.initDataTable(new Account("admin", "admin", UserRole.ADMIN.getValue()));
 	}
     @Transactional
     private void initDataTable(Account account) {
+    	
     	Iterable<Account> accounts = accountRepository.findAll();
     	if(accounts == null || IterableUtil.size(accounts) < 2) accountRepository.save(account);		
 	}
@@ -54,7 +57,11 @@ class AccountServiceImpl implements AccountService {
 
 	@Override
 	@Transactional
-	public AccountDto save(AccountDto accountDto, String role) {
+	public AccountDto save(final AccountDto accountDto, final String role) {
+		
+		if(accountDto == null) throw new IllegalArgumentException("The accountDto paremter is null");
+		if(role.isEmpty()) throw new IllegalArgumentException("The role paremter is empty");
+		
 		Account otherAccount = accountRepository.findOneByEmail(accountDto.getEmail());
 		if(otherAccount == null) {
 			accountDto.setPassword(passwordEncoder.encode(accountDto.getPassword()));			
@@ -67,7 +74,10 @@ class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+		
+		if(username.isEmpty()) throw new IllegalArgumentException("The paremter is empty");
+		
 		Account account = accountRepository.findOneByEmail(username);
 		if(account == null) {
 			throw new UsernameNotFoundException("user not found");
@@ -77,23 +87,35 @@ class AccountServiceImpl implements AccountService {
 	
 	
 	@Override
-	public Account createUserAccount(AccountDto accountDto) {
+	public Account createUserAccount(final AccountDto accountDto) {
+		
+		if(accountDto == null) throw new IllegalArgumentException("The paremter is null");
+		
 		return new Account(accountDto.getEmail(), accountDto.getPassword(), UserRole.USER.getValue());
 	}
 	
 	@Override
-	public void signin(AccountDto accountDto) {
+	public void signin(final AccountDto accountDto) {
+		
+		if(accountDto == null) throw new IllegalArgumentException("The paremter is null");
+		
 		Account account = this.createUserAccount(accountDto);
 		SecurityContextHolder.getContext().setAuthentication(authenticate(account));
 	}
 	
 	@Override
-	public Optional<AccountDto> findOneByEmail(String email) {
+	public Optional<AccountDto> findOneByEmail(final String email) {
+		
+		if(email.isEmpty()) throw new IllegalArgumentException("The paremter is empty");
+		
 		return Optional.of(modelMapper.map(accountRepository.findOneByEmail(email), AccountDto.class));
 	}
 	
 	@Override
-	public Optional<AccountDto> findById(Long id) {
+	public Optional<AccountDto> findById(final Long id) {
+		
+		if(id == null) throw new IllegalArgumentException("The paremter is null");
+		
 		Optional<Account> opAccount = accountRepository.findById(id);  		
 		if(opAccount.isPresent()) {
     		Account account = opAccount.get();

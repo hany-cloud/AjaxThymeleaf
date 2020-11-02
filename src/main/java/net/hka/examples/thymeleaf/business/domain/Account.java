@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,21 +21,24 @@ public class Account {
 	private Long id;
 
 	@Column(unique = true)
+	@NotBlank
 	private String email;
 	
 	@JsonIgnore
+	@NotBlank
 	private String password;
 
+	@NotBlank
 	private String role = UserRole.USER.getValue();
 
 	@Version
 	private Instant created = Instant.now();
 
     protected Account() {
-
-	}
+    }
 	
 	public Account(final String email, final String password, final String role) {
+		
 		this.email = email;
 		this.password = password;
 		this.role = role;

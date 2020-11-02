@@ -33,12 +33,14 @@ public class Task {
     }
 
     public Task(final String title, final String text, final Date dueTo) {
+    	
     	this.title = title;
         this.text = text;
         this.dueTo = dueTo;
     }
     
     public Task(final Long id, final String title, final String text, final Date dueTo) {
+    	
     	this(title, text, dueTo);
     	this.id = id;
     }

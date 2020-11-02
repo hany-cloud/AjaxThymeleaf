@@ -1,11 +1,13 @@
 package net.hka.examples.thymeleaf.business.domain;
 
 public enum UserRole {
-	USER("ROLE_USER"), ADMIN("ROLE_ADMIN");
+	
+	USER("ROLE_USER"), 
+	ADMIN("ROLE_ADMIN");
 
 	private String value;
 
-	private UserRole(String value) {
+	private UserRole(final String value) {
 		this.value = value;
 	}
 

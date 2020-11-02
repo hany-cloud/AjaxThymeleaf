@@ -7,21 +7,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import net.hka.examples.thymeleaf.business.domain.Account;
-import net.hka.examples.thymeleaf.dto.AccountDto;
+import net.hka.examples.thymeleaf.business.dto.AccountDto;
 
 public interface AccountService extends UserDetailsService {
 		
 	public AccountDto save(AccountDto accountDto, String role);
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException;
 	
-	public void signin(AccountDto accountDto);
+	public void signin(final AccountDto accountDto);
 	
-	public Optional<AccountDto> findOneByEmail(String email);
+	public Optional<AccountDto> findOneByEmail(final String email);
 	
-	public Optional<AccountDto> findById(Long id);
+	public Optional<AccountDto> findById(final Long id);
 	
-	public Account createUserAccount(AccountDto accountDto);
+	public Account createUserAccount(final AccountDto accountDto);
 		
 }

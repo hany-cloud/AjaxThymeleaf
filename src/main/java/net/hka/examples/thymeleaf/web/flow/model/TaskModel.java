@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.binding.validation.ValidationContext;
 import org.springframework.stereotype.Component;
 
-import net.hka.examples.thymeleaf.constraint.ModelValidator;
-import net.hka.examples.thymeleaf.dto.TaskDto;
+import net.hka.common.validation.ModelValidator;
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
 
 @SuppressWarnings("serial")
 @Component
@@ -28,6 +28,7 @@ public class TaskModel implements Serializable {
 		
 	}
 	public TaskModel(Iterable<TaskDto> iterable) {
+		
 		super();
 		this.tasks = iterable;
 		this.task = new TaskDto();

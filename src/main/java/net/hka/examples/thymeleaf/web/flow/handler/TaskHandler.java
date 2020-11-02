@@ -11,15 +11,15 @@ import org.springframework.binding.message.MessageBuilder;
 import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Component;
 
+import net.hka.common.validation.ModelValidator;
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
 import net.hka.examples.thymeleaf.business.service.TaskService;
-import net.hka.examples.thymeleaf.constraint.ModelValidator;
-import net.hka.examples.thymeleaf.dto.TaskDto;
 import net.hka.examples.thymeleaf.web.flow.model.TaskModel;
 
 @Component
 public class TaskHandler {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger("ErrorLog");
+	private static final Logger logger = LoggerFactory.getLogger("ErrorLog");
 	
 	@Autowired
 	private TaskService taskService;
@@ -32,6 +32,7 @@ public class TaskHandler {
 	}
 	
 	public TaskModel findAll(TaskModel model) {	
+		
 		model.setTasks(taskService.findAll());
 
 		model.setHasErrors(false);
@@ -43,6 +44,7 @@ public class TaskHandler {
 	}
 		
 	public String setTask(TaskModel model, int taskId) {
+		
 		String transitionValue = "failure";
 		for (TaskDto task : model.getTasks()) {
 			if(task.getId() == taskId) {
@@ -62,6 +64,7 @@ public class TaskHandler {
 	}*/
 	
 	public TaskModel saveTask(TaskModel model, MessageContext messages) {
+		
 		TaskDto taskDto = model.getTask();		
 		// to validate the taskDto bean against it's annotations 
 		Set<ConstraintViolation<TaskDto>> violations = modelValidator.validateModel(taskDto, messages); //validator.validate(taskDto);	
@@ -69,7 +72,7 @@ public class TaskHandler {
 		if(!model.isHasErrors()) {
 			// saving the task to database
 			TaskDto savedTask = taskService.save(taskDto);
-			LOGGER.info("Saved Task: " + savedTask.toString());
+			logger.info("Saved Task: " + savedTask.toString());
 			
 			// refresh the list to view the new added task
 			model.setTasks(taskService.findAll()); // here you can simply add the task to the list
@@ -85,6 +88,7 @@ public class TaskHandler {
 	}
 		
 	public TaskModel deleteTask(TaskModel model, MessageContext messages) {
+		
 		taskService.delete(model.getTask().getId());
 		
 		model.setTasks(taskService.findAll());

@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import net.hka.common.web.servlet.mvc.support.MessageHelper;
+import net.hka.common.web.servlet.util.AjaxUtils;
 import net.hka.examples.thymeleaf.business.domain.UserRole;
+import net.hka.examples.thymeleaf.business.dto.AccountDto;
 import net.hka.examples.thymeleaf.business.service.AccountService;
-import net.hka.examples.thymeleaf.dto.AccountDto;
-import net.hka.examples.thymeleaf.web.support.AjaxUtils;
-import net.hka.examples.thymeleaf.web.support.MessageHelper;
 
 @Controller
 class SignupController {
@@ -24,6 +24,7 @@ class SignupController {
 	
 	// link signup messages by message resource
 	private static final String SIGNUP_SUCCESS_MESSAGE = "signup.success";
+	
 	private static final String SIGNUP_EMAIL_EXIST_MESSAGE = "signup.email.in.use";
 	
 
@@ -37,6 +38,7 @@ class SignupController {
 
 	@GetMapping("signup")
 	String signup(Model model, @RequestHeader(value = "X-Requested-With", required = false) String requestedWith) {
+		
 		model.addAttribute(new AccountDto());
 		if (AjaxUtils.isAjaxRequest(requestedWith)) {
 			return SIGNUP_VIEW_NAME.concat(" :: signupForm");
@@ -46,6 +48,7 @@ class SignupController {
 
 	@PostMapping("signup")
 	String signup(@Valid @ModelAttribute AccountDto accountDto, Errors errors, RedirectAttributes ra) {
+		
 		if (errors.hasErrors()) {
 			return SIGNUP_VIEW_NAME;
 		}
@@ -64,6 +67,5 @@ class SignupController {
 		// account is already exist
 		errors.rejectValue("email", SIGNUP_EMAIL_EXIST_MESSAGE, "Sorry! the email is already used");
 		return SIGNUP_VIEW_NAME;
-		
 	}
 }

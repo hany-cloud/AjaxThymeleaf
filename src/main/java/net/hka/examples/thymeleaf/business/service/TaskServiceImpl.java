@@ -14,10 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.hka.common.util.IterableUtil;
+import net.hka.common.web.model.BaseModel;
 import net.hka.examples.thymeleaf.business.domain.Task;
-import net.hka.examples.thymeleaf.dto.BaseModel;
-import net.hka.examples.thymeleaf.dto.TaskDto;
-import net.hka.examples.thymeleaf.util.IterableUtil;
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
+import net.hka.examples.thymeleaf.business.repository.TaskRepository;
 
 @Service("TaskService")
 public class TaskServiceImpl implements TaskService {
@@ -30,12 +31,14 @@ public class TaskServiceImpl implements TaskService {
 
     @PostConstruct
     private void initialize() throws ParseException {
+    	
     	// Dummy data to initialize database with
         this.initDataTable(new Task("Shopping", "Buy Milk and Butter...", BaseModel.toDate("01/01/2017")));
         this.initDataTable(new Task("Books", "Read 'Lords of The Ring'", BaseModel.toDate("02/01/2017")));
     }
     @Transactional
     private void initDataTable(Task task) {
+    	
     	Iterable<Task> tasks = taskRepository.findAll();
     	if(tasks == null || IterableUtil.size(tasks) < 2) taskRepository.save(task);		
 	}
@@ -43,7 +46,8 @@ public class TaskServiceImpl implements TaskService {
     
     @Override
     @Transactional
-    public TaskDto save(TaskDto taskDto) {
+    public TaskDto save(final TaskDto taskDto) {
+    	
     	if(taskDto == null) throw new IllegalArgumentException("The paremter is null");
     	
     	Date dueDate = new Date();
@@ -63,13 +67,16 @@ public class TaskServiceImpl implements TaskService {
     
     @Override
     @Transactional
-    public void delete(Long id) {
-    	if(id == null) throw new IllegalArgumentException();
+    public void delete(final Long id) {
+    	
+    	if(id == null) throw new IllegalArgumentException("The paremter is null");
+    	
     	taskRepository.deleteById(id);
 	}
     
     @Override
     public List<TaskDto> findAll() {
+    	
     	return StreamSupport.stream(taskRepository.findAll().spliterator(), false)
     			.map(task -> modelMapper.map(task, TaskDto.class))
     		    .collect(Collectors.toList());
@@ -81,7 +88,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Optional<TaskDto> findById(Long id) {
+    public Optional<TaskDto> findById(final Long id) {
+    	
+    	if(id == null) throw new IllegalArgumentException("The paremter is null");
+    	
     	Optional<Task> opTask = taskRepository.findById(id);    	
     	if(opTask.isPresent()) {
     		Task task = opTask.get();
@@ -95,5 +105,4 @@ public class TaskServiceImpl implements TaskService {
     	
     	return Optional.empty();
     }
-
 }

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
 import net.hka.examples.thymeleaf.business.service.TaskService;
-import net.hka.examples.thymeleaf.dto.TaskDto;
 
 /**
  * Layout Dialect usage example.
@@ -33,12 +33,14 @@ class TaskController_LayoutDialect {
 
     @RequestMapping(value = "task-ld", method = RequestMethod.GET)
     String tasks(Model model) {
+    	
         model.addAttribute("tasks", taskService.findAll());
         return "task-ld/task-list";
     }
 
     @RequestMapping(value = "task-ld/{id}", method = RequestMethod.GET)
     String task(@PathVariable("id") Long id, Model model) {
+    	
     	TaskDto task = taskService.findById(id).orElseThrow(EntityNotFoundException::new);
         model.addAttribute("task", task);
         return "task-ld/task";

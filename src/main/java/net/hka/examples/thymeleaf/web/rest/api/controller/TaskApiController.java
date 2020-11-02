@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
+import net.hka.examples.thymeleaf.business.exception.TaskNotFoundException;
 import net.hka.examples.thymeleaf.business.service.TaskService;
-import net.hka.examples.thymeleaf.dto.TaskDto;
-import net.hka.examples.thymeleaf.error.exception.TaskNotFoundException;
 import net.hka.examples.thymeleaf.web.rest.api.TaskModelAssembler;
 
 /**
@@ -75,10 +75,10 @@ public class TaskApiController {
 			taskDto.setTitle(newTaskDto.getTitle());
 			taskDto.setText(newTaskDto.getText());
 			taskDto.setDueTo(newTaskDto.getDueTo());
-			return taskService.save(taskDto); // save
+			return taskService.save(taskDto); // update
 		}).orElseGet(() -> {
 			newTaskDto.setId(id);
-			return taskService.save(newTaskDto); // update
+			return taskService.save(newTaskDto); // save
 		});
 
 		EntityModel<TaskDto> entityModel = assembler.toModel(updatedTaskDto);
