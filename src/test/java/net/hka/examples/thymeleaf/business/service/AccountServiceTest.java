@@ -21,8 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import net.hka.examples.thymeleaf.business.domain.Account;
 import net.hka.examples.thymeleaf.business.domain.UserRole;
-import net.hka.examples.thymeleaf.business.dto.AccountDto;
 import net.hka.examples.thymeleaf.business.repository.AccountRepository;
+import net.hka.examples.thymeleaf.web.dto.AccountDto;
 
 @DisplayName("When running The Test for AccountService Class")
 @ExtendWith(MockitoExtension.class)

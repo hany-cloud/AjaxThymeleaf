@@ -24,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import net.hka.common.util.IterableUtil;
 import net.hka.examples.thymeleaf.business.domain.Account;
 import net.hka.examples.thymeleaf.business.domain.UserRole;
-import net.hka.examples.thymeleaf.business.dto.AccountDto;
 import net.hka.examples.thymeleaf.business.repository.AccountRepository;
+import net.hka.examples.thymeleaf.web.dto.AccountDto;
 
 @Service("AccountService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)

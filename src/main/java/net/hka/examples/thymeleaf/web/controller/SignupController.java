@@ -14,8 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import net.hka.common.web.servlet.mvc.support.MessageHelper;
 import net.hka.common.web.servlet.util.AjaxUtils;
 import net.hka.examples.thymeleaf.business.domain.UserRole;
-import net.hka.examples.thymeleaf.business.dto.AccountDto;
 import net.hka.examples.thymeleaf.business.service.AccountService;
+import net.hka.examples.thymeleaf.web.dto.AccountDto;
 
 @Controller
 class SignupController {

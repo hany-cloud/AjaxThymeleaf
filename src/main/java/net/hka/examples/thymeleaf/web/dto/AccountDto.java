@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.business.dto;
+package net.hka.examples.thymeleaf.web.dto;
 
 import java.io.Serializable;
 

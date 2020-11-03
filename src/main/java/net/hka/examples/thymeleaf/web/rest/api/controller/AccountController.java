@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import net.hka.examples.thymeleaf.business.dto.AccountDto;
 import net.hka.examples.thymeleaf.business.service.AccountService;
+import net.hka.examples.thymeleaf.web.dto.AccountDto;
 
 @RestController
 class AccountController {

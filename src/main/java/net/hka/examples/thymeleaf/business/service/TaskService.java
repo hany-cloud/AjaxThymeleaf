@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import net.hka.examples.thymeleaf.business.dto.TaskDto;
+import net.hka.examples.thymeleaf.web.dto.TaskDto;
 
 @Service
 public interface TaskService {

@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import net.hka.common.util.IterableUtil;
 import net.hka.common.web.model.BaseModel;
 import net.hka.examples.thymeleaf.business.domain.Task;
-import net.hka.examples.thymeleaf.business.dto.TaskDto;
 import net.hka.examples.thymeleaf.business.repository.TaskRepository;
+import net.hka.examples.thymeleaf.web.dto.TaskDto;
 
 @Service("TaskService")
 public class TaskServiceImpl implements TaskService {

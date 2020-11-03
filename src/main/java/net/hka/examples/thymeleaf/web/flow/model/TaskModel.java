@@ -9,7 +9,7 @@ import org.springframework.binding.validation.ValidationContext;
 import org.springframework.stereotype.Component;
 
 import net.hka.common.validation.ModelValidator;
-import net.hka.examples.thymeleaf.business.dto.TaskDto;
+import net.hka.examples.thymeleaf.web.dto.TaskDto;
 
 @SuppressWarnings("serial")
 @Component

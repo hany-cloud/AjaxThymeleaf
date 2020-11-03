@@ -34,9 +34,9 @@ import org.modelmapper.ModelMapper;
 
 import net.hka.common.web.model.BaseModel;
 import net.hka.examples.thymeleaf.business.domain.Task;
-import net.hka.examples.thymeleaf.business.dto.TaskDto;
 import net.hka.examples.thymeleaf.business.exception.TaskNotFoundException;
 import net.hka.examples.thymeleaf.business.repository.TaskRepository;
+import net.hka.examples.thymeleaf.web.dto.TaskDto;
 
 @DisplayName("When running the test for TaskService Class")
 @ExtendWith(MockitoExtension.class)
