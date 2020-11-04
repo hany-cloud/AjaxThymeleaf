@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.web.service;
+package net.hka.examples.thymeleaf.business.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -34,11 +34,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import net.hka.examples.thymeleaf.business.domain.Task;
+import net.hka.examples.thymeleaf.business.dto.BaseDto;
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
 import net.hka.examples.thymeleaf.business.exception.TaskNotFoundException;
-import net.hka.examples.thymeleaf.business.repository.TaskRepository;
-import net.hka.examples.thymeleaf.web.dto.BaseDto;
-import net.hka.examples.thymeleaf.web.dto.TaskDto;
+import net.hka.examples.thymeleaf.business.service.TaskServiceImpl;
+import net.hka.examples.thymeleaf.domain.Task;
+import net.hka.examples.thymeleaf.domain.repository.TaskRepository;
 
 @DisplayName("When running the test for TaskService Class")
 @ExtendWith(MockitoExtension.class)

@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.web.service;
+package net.hka.examples.thymeleaf.business.service;
 
 import static java.util.function.Predicate.isEqual;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,10 +19,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import net.hka.examples.thymeleaf.business.domain.Account;
-import net.hka.examples.thymeleaf.business.domain.UserRole;
-import net.hka.examples.thymeleaf.business.repository.AccountRepository;
-import net.hka.examples.thymeleaf.web.dto.AccountDto;
+import net.hka.examples.thymeleaf.business.dto.AccountDto;
+import net.hka.examples.thymeleaf.business.service.AccountServiceImpl;
+import net.hka.examples.thymeleaf.domain.Account;
+import net.hka.examples.thymeleaf.domain.UserRole;
+import net.hka.examples.thymeleaf.domain.repository.AccountRepository;
 
 @DisplayName("When running The Test for AccountService Class")
 @ExtendWith(MockitoExtension.class)

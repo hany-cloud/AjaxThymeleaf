@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.business.domain;
+package net.hka.examples.thymeleaf.domain;
 
 import java.time.Instant;
 

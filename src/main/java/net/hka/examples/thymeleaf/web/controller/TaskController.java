@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import net.hka.common.web.servlet.util.AjaxUtils;
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
 import net.hka.examples.thymeleaf.business.exception.TaskNotFoundException;
-import net.hka.examples.thymeleaf.web.dto.TaskDto;
-import net.hka.examples.thymeleaf.web.service.TaskService;
+import net.hka.examples.thymeleaf.business.service.TaskService;
 
 /**
  * Standard Layout System with Fragment Expressions usage example

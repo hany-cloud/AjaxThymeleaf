@@ -12,9 +12,9 @@ import org.springframework.binding.message.MessageContext;
 import org.springframework.stereotype.Component;
 
 import net.hka.common.validation.ModelValidator;
-import net.hka.examples.thymeleaf.web.dto.TaskDto;
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
+import net.hka.examples.thymeleaf.business.service.TaskService;
 import net.hka.examples.thymeleaf.web.flow.model.TaskModel;
-import net.hka.examples.thymeleaf.web.service.TaskService;
 
 @Component
 public class TaskHandler {

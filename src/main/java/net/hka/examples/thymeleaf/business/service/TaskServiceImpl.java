@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.web.service;
+package net.hka.examples.thymeleaf.business.service;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -16,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import net.hka.common.ui.conversion.DateFormatter;
 import net.hka.common.util.IterableUtil;
-import net.hka.examples.thymeleaf.business.domain.Task;
-import net.hka.examples.thymeleaf.business.repository.TaskRepository;
-import net.hka.examples.thymeleaf.web.dto.BaseDto;
-import net.hka.examples.thymeleaf.web.dto.TaskDto;
+import net.hka.examples.thymeleaf.business.dto.BaseDto;
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
+import net.hka.examples.thymeleaf.domain.Task;
+import net.hka.examples.thymeleaf.domain.repository.TaskRepository;
 
 @Service("TaskService")
 public class TaskServiceImpl implements TaskService {

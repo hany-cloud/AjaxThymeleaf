@@ -1,10 +1,10 @@
-package net.hka.examples.thymeleaf.web.service;
+package net.hka.examples.thymeleaf.business.service;
 
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import net.hka.examples.thymeleaf.web.dto.TaskDto;
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
 
 @Service
 public interface TaskService {

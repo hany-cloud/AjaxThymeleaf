@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
-import net.hka.examples.thymeleaf.web.service.AccountService;
+import net.hka.examples.thymeleaf.business.service.AccountService;
 
 
 @Configuration

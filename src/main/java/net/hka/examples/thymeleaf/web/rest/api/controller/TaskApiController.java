@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.hka.examples.thymeleaf.business.dto.TaskDto;
 import net.hka.examples.thymeleaf.business.exception.TaskNotFoundException;
-import net.hka.examples.thymeleaf.web.dto.TaskDto;
+import net.hka.examples.thymeleaf.business.service.TaskService;
 import net.hka.examples.thymeleaf.web.rest.api.TaskModelAssembler;
-import net.hka.examples.thymeleaf.web.service.TaskService;
 
 /**
  * Hypermedia-Driven RESTful Web Service to handle all CRUD operations for the task items

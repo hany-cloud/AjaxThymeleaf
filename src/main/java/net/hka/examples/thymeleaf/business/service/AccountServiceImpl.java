@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.web.service;
+package net.hka.examples.thymeleaf.business.service;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -22,10 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.hka.common.util.IterableUtil;
-import net.hka.examples.thymeleaf.business.domain.Account;
-import net.hka.examples.thymeleaf.business.domain.UserRole;
-import net.hka.examples.thymeleaf.business.repository.AccountRepository;
-import net.hka.examples.thymeleaf.web.dto.AccountDto;
+import net.hka.examples.thymeleaf.business.dto.AccountDto;
+import net.hka.examples.thymeleaf.domain.Account;
+import net.hka.examples.thymeleaf.domain.UserRole;
+import net.hka.examples.thymeleaf.domain.repository.AccountRepository;
 
 @Service("AccountService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
