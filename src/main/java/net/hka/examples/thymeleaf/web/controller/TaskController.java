@@ -1,6 +1,5 @@
 package net.hka.examples.thymeleaf.web.controller;
 
-import java.text.ParseException;
 import java.util.Date;
 
 import javax.validation.Valid;
@@ -15,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import net.hka.common.web.model.BaseModel;
 import net.hka.common.web.servlet.util.AjaxUtils;
 import net.hka.examples.thymeleaf.business.exception.TaskNotFoundException;
-import net.hka.examples.thymeleaf.business.service.TaskService;
 import net.hka.examples.thymeleaf.web.dto.TaskDto;
+import net.hka.examples.thymeleaf.web.service.TaskService;
 
 /**
  * Standard Layout System with Fragment Expressions usage example
@@ -208,18 +206,19 @@ class TaskController {
 	}
 	
 	
-	private void prepareTask(Long id, Model model) {
+	private void prepareTask(Long id, Model model) throws TaskNotFoundException {
+		
 		// fetch task by task id
 		TaskDto task = taskService.findById(id)
 				.orElseThrow(() -> new TaskNotFoundException(id));
 		
-		// add task attribute to the model
-		try {
-			task.setDueTo(BaseModel.dateFormat(task.getDueTo()));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		// add task attribute to the model
+//		try {
+//			task.setDueTo(BaseModel.formatToPattern(task.getDueTo()));
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		model.addAttribute("task", task);
 	}
 }

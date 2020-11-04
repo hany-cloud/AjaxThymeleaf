@@ -21,11 +21,28 @@ public final class DateFormatter implements Formatter<Date> {
     @Autowired
     private MessageSource messageSource;
 
+    
 
     public DateFormatter() {
         super();
     }
-
+    
+    
+    
+    public Date parse(final String source, String pattern) throws ParseException {
+    	
+    	if(source.isEmpty()) throw new IllegalArgumentException("String source parameter is empty or null");
+    	if(pattern.isEmpty()) throw new IllegalArgumentException("String pattern parameter is empty or null");
+    	
+    	final SimpleDateFormat dateFormat = createDateFormat(pattern);
+        return dateFormat.parse(source);
+    }
+    
+    public Date parse(final String source) throws ParseException {
+    	
+        return parse(source, Locale.ROOT);
+    }
+    
     public Date parse(final String source, final Locale locale) throws ParseException {
     	
     	if(source.isEmpty()) throw new IllegalArgumentException("The source paremter is empty");
@@ -34,7 +51,14 @@ public final class DateFormatter implements Formatter<Date> {
         final SimpleDateFormat dateFormat = createDateFormat(locale);
         return dateFormat.parse(source);
     }
+    
+    
+    
+    public String print(final Date date) {
 
+    	return print(date, Locale.ROOT);
+    }
+    
     public String print(final Date date, final Locale locale) {
 
     	if(date == null) throw new IllegalArgumentException("The date paremter is empty");
@@ -56,5 +80,13 @@ public final class DateFormatter implements Formatter<Date> {
         dateFormat.setLenient(false);
         return dateFormat;
     }
-
+    
+    private SimpleDateFormat createDateFormat(final String pattern) {
+    	
+        try {
+        	return new SimpleDateFormat(pattern);
+		} catch(Exception e) {
+			return new SimpleDateFormat(DEFAULT_DATE_FORMATE);
+		}         
+    }
 }

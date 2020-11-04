@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.business.service;
+package net.hka.examples.thymeleaf.web.service;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -14,10 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import net.hka.common.ui.conversion.DateFormatter;
 import net.hka.common.util.IterableUtil;
-import net.hka.common.web.model.BaseModel;
 import net.hka.examples.thymeleaf.business.domain.Task;
 import net.hka.examples.thymeleaf.business.repository.TaskRepository;
+import net.hka.examples.thymeleaf.web.dto.BaseDto;
 import net.hka.examples.thymeleaf.web.dto.TaskDto;
 
 @Service("TaskService")
@@ -28,13 +29,16 @@ public class TaskServiceImpl implements TaskService {
 	
 	@Autowired
     private TaskRepository taskRepository;
+	
+	@Autowired
+    private DateFormatter dateFormatter;
 
     @PostConstruct
     private void initialize() throws ParseException {
     	
     	// Dummy data to initialize database with
-        this.initDataTable(new Task("Shopping", "Buy Milk and Butter...", BaseModel.toDate("01/01/2017")));
-        this.initDataTable(new Task("Books", "Read 'Lords of The Ring'", BaseModel.toDate("02/01/2017")));
+        this.initDataTable(new Task("Shopping", "Buy Milk and Butter...", dateFormatter.parse("2017-01-01", BaseDto.PARSED_DATE_FORMAT)));
+        this.initDataTable(new Task("Books", "Read 'Lords of The Ring'", dateFormatter.parse("2017-01-01", BaseDto.PARSED_DATE_FORMAT)));
     }
     @Transactional
     private void initDataTable(Task task) {
@@ -52,7 +56,7 @@ public class TaskServiceImpl implements TaskService {
     	
     	Date dueDate = new Date();
     	try {
-    		dueDate = BaseModel.toDate(taskDto.getDueTo());
+    		if(!taskDto.getDueTo().isEmpty()) dueDate = dateFormatter.parse(taskDto.getDueTo(), BaseDto.PARSED_DATE_FORMAT); 
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

@@ -29,10 +29,9 @@ import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import net.hka.common.web.model.BaseModel;
 import net.hka.examples.thymeleaf.business.exception.TaskNotFoundException;
-import net.hka.examples.thymeleaf.business.service.TaskService;
 import net.hka.examples.thymeleaf.web.dto.TaskDto;
+import net.hka.examples.thymeleaf.web.service.TaskService;
 
 class TaskControllerTest {
 
@@ -153,7 +152,7 @@ class TaskControllerTest {
                                         hasProperty("id", equalTo(TASK_ONE_ID)),
                                         hasProperty("title", equalTo(TASK_ONE_TITLE)),
                                         hasProperty("text", equalTo(TASK_ONE_TEXT)),
-                                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(TASK_ONE_DUE)))
+                                        hasProperty("dueTo", equalTo(TASK_ONE_DUE))
                                 )))
                         );
             }
@@ -168,7 +167,7 @@ class TaskControllerTest {
                                         		hasProperty("id", equalTo(TASK_TWO_ID)),
                                         		hasProperty("title", equalTo(TASK_TWO_TITLE)),
                                                 hasProperty("text", equalTo(TASK_TWO_TEXT)),
-                                                hasProperty("dueTo", equalTo(BaseModel.dateFormat(TASK_TWO_DUE)))
+                                                hasProperty("dueTo", equalTo(TASK_TWO_DUE))
                                         )))
                         );
             }
@@ -188,13 +187,13 @@ class TaskControllerTest {
                                                 		hasProperty("id", equalTo(TASK_ONE_ID)),
                                                 		hasProperty("title", equalTo(TASK_ONE_TITLE)),
                                                         hasProperty("text", equalTo(TASK_ONE_TEXT)),
-                                                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(TASK_ONE_DUE)))
+                                                        hasProperty("dueTo", equalTo(TASK_ONE_DUE))
                                                 ),
                                                 allOf(
                                                 		hasProperty("id", equalTo(TASK_TWO_ID)),
                                                 		hasProperty("title", equalTo(TASK_TWO_TITLE)),
                                                         hasProperty("text", equalTo(TASK_TWO_TEXT)),
-                                                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(TASK_TWO_DUE)))
+                                                        hasProperty("dueTo", equalTo(TASK_TWO_DUE))
                                                 )
                                         ))
                         );
@@ -327,7 +326,7 @@ class TaskControllerTest {
                                 allOf(
                                         hasProperty("title", equalTo(TITLE)),
                                         hasProperty("text", equalTo(TEXT)),
-                                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(DUE)))
+                                        hasProperty("dueTo", equalTo(DUE))
                                 )
                         ));
             }
@@ -495,7 +494,7 @@ class TaskControllerTest {
                                 allOf(
                                         hasProperty("title", equalTo(TITLE)),
                                         hasProperty("text", equalTo(TEXT)),
-                                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(DUE)))
+                                        hasProperty("dueTo", equalTo(DUE))
                                 )
                         ));
             }
@@ -836,7 +835,7 @@ class TaskControllerTest {
                                                 		hasProperty("id", equalTo(TASK_TO_KEEP_ID)),
                                                 		hasProperty("title", equalTo(TASK_TO_KEEP_TITLE)),
                                                         hasProperty("text", equalTo(TASK_TO_KEEP_TEXT)),
-                                                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(TASK_TO_KEEP_DUE)))
+                                                        hasProperty("dueTo", equalTo(TASK_TO_KEEP_DUE))
                                                 )
                                         ))
                         );

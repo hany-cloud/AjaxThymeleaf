@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import net.hka.examples.thymeleaf.business.service.AccountService;
 import net.hka.examples.thymeleaf.web.dto.AccountDto;
+import net.hka.examples.thymeleaf.web.service.AccountService;
 
 
 public class SignupControllerTest {

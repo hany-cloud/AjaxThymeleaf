@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.business.service;
+package net.hka.examples.thymeleaf.web.service;
 
 import java.util.Optional;
 

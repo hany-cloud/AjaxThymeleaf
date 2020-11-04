@@ -1,7 +1,5 @@
 package net.hka.examples.thymeleaf.web.dto;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -11,7 +9,7 @@ import net.hka.common.validation.FieldMatch;
 
 @SuppressWarnings("serial")
 @FieldMatch(first = "password", second = "confirmPassword", message = BaseDto.PASSWORD_FIELDS_MUST_MATCH)
-public class AccountDto implements Serializable, BaseDto {
+public class AccountDto implements BaseDto {
 
 	private Long id;
 	

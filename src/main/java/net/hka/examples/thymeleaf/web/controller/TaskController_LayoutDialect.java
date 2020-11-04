@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import net.hka.examples.thymeleaf.business.service.TaskService;
 import net.hka.examples.thymeleaf.web.dto.TaskDto;
+import net.hka.examples.thymeleaf.web.service.TaskService;
 
 /**
  * Layout Dialect usage example.

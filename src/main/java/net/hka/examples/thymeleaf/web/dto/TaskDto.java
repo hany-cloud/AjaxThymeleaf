@@ -1,14 +1,12 @@
 package net.hka.examples.thymeleaf.web.dto;
 
-import java.io.Serializable;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @SuppressWarnings("serial")
-public class TaskDto implements Serializable, BaseDto {
+public class TaskDto implements BaseDto {
     
 	private Long id;
 

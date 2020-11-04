@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.business.service;
+package net.hka.examples.thymeleaf.web.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,8 +16,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,10 +34,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import net.hka.common.web.model.BaseModel;
 import net.hka.examples.thymeleaf.business.domain.Task;
 import net.hka.examples.thymeleaf.business.exception.TaskNotFoundException;
 import net.hka.examples.thymeleaf.business.repository.TaskRepository;
+import net.hka.examples.thymeleaf.web.dto.BaseDto;
 import net.hka.examples.thymeleaf.web.dto.TaskDto;
 
 @DisplayName("When running the test for TaskService Class")
@@ -51,7 +53,15 @@ class TaskServiceTest {
 	
 	@InjectMocks
 	private TaskServiceImpl taskService;
+		
 	
+	private static Date toDate(final String dateString) throws ParseException { // -> DateFormatter -> parse
+		
+		if(dateString.isEmpty()) throw new IllegalArgumentException("String date parameter is empty or null");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat(BaseDto.PARSED_DATE_FORMAT);//"yyyy.MM.dd HH:mm:ss"
+		return sdf.parse(dateString);
+    }
 	
 	@BeforeEach
 	void configureSystemUnderTest() {
@@ -93,8 +103,8 @@ class TaskServiceTest {
             
 			@BeforeEach
             void repositorySaveTask() throws ParseException {
-				Task task = new Task(TITLE, TEXT, BaseModel.toDate(DUE));
-				Task savedTask = new Task(TITLE, TEXT, BaseModel.toDate(DUE));
+				Task task = new Task(TITLE, TEXT, toDate(DUE));
+				Task savedTask = new Task(TITLE, TEXT, toDate(DUE));
 				savedTask.setId(TASK_ID);
 				//when(taskRepository.save((Task) any(Task.class))).thenReturn(savedTask);
 				when(taskRepository.save(task)).thenReturn(savedTask);
@@ -223,14 +233,14 @@ class TaskServiceTest {
 				firstDto.setTitle(TASK_ONE_TITLE);
 				firstDto.setText(TASK_ONE_TEXT);
 				firstDto.setDueTo(TASK_ONE_DUE);
-				Task first = new Task(firstDto.getTitle(), firstDto.getText(), BaseModel.toDate(TASK_ONE_DUE));
+				Task first = new Task(firstDto.getTitle(), firstDto.getText(), toDate(TASK_ONE_DUE));
 				first.setId(TASK_ONE_ID);
 				
 				TaskDto secondDto = new TaskDto();
 				secondDto.setTitle(TASK_TWO_TITLE);
 				secondDto.setText(TASK_TWO_TEXT);
 				secondDto.setDueTo(TASK_TWO_DUE);
-                Task second = new Task(secondDto.getTitle(), secondDto.getText(), BaseModel.toDate(TASK_TWO_DUE));
+                Task second = new Task(secondDto.getTitle(), secondDto.getText(), toDate(TASK_TWO_DUE));
                 second.setId(TASK_TWO_ID);
                 
                 when(taskRepository.findAll()).thenReturn(Arrays.asList(first, second));
@@ -275,7 +285,7 @@ class TaskServiceTest {
 				assertThat(taskDtos, hasItem(allOf(
                         hasProperty("title", equalTo(TASK_ONE_TITLE)),
                         hasProperty("text", equalTo(TASK_ONE_TEXT)),
-                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(TASK_ONE_DUE)))
+                        hasProperty("dueTo", equalTo(TASK_ONE_DUE))
                 )));
             }
 
@@ -290,7 +300,7 @@ class TaskServiceTest {
 				assertThat(taskDtos, hasItem(allOf(
                         hasProperty("title", equalTo(TASK_TWO_TITLE)),
                         hasProperty("text", equalTo(TASK_TWO_TEXT)),
-                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(TASK_TWO_DUE)))
+                        hasProperty("dueTo", equalTo(TASK_TWO_DUE))
                 )));
             }
             
@@ -310,12 +320,12 @@ class TaskServiceTest {
                                                 allOf(
                                                 		hasProperty("title", equalTo(TASK_ONE_TITLE)),
                                                         hasProperty("text", equalTo(TASK_ONE_TEXT)),
-                                                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(TASK_ONE_DUE)))
+                                                        hasProperty("dueTo", equalTo(TASK_ONE_DUE))
                                                 ),
                                                 allOf(
                                                 		hasProperty("title", equalTo(TASK_TWO_TITLE)),
                                                         hasProperty("text", equalTo(TASK_TWO_TEXT)),
-                                                        hasProperty("dueTo", equalTo(BaseModel.dateFormat(TASK_TWO_DUE)))
+                                                        hasProperty("dueTo", equalTo(TASK_TWO_DUE))
                                                 )
                                         )
                );
@@ -357,7 +367,7 @@ class TaskServiceTest {
             
             @BeforeEach
             void repositoryReturnsTaskItem() throws ParseException {
-        		Optional<Task> task = Optional.of(new Task(TITLE, TEXT, BaseModel.toDate(DUE)));
+        		Optional<Task> task = Optional.of(new Task(TITLE, TEXT, toDate(DUE)));
         		task.get().setId(TASK_ID);
         		when(taskRepository.findById(Mockito.anyLong())).thenReturn(task);
         		

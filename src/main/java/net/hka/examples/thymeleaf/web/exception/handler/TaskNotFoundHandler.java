@@ -1,4 +1,4 @@
-package net.hka.examples.thymeleaf.business.exception.handler;
+package net.hka.examples.thymeleaf.web.exception.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
