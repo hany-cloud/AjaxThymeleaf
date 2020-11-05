@@ -9,11 +9,11 @@ import net.hka.examples.thymeleaf.business.dto.TaskDto;
 @Service
 public interface TaskService {
 
-    public TaskDto save(final TaskDto taskDto);
+    TaskDto save(final TaskDto taskDto);
     
-    public void delete(final Long id);
+    void delete(final Long id);
     
-    public Iterable<TaskDto> findAll();
+    Iterable<TaskDto> findAll();
 
-    public Optional<TaskDto> findById(final Long id);
+    Optional<TaskDto> findById(final Long id);
 }

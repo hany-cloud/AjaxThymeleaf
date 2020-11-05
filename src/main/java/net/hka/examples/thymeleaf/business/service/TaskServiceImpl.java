@@ -49,7 +49,7 @@ public class TaskServiceImpl implements TaskService {
     
     
     @Override
-    @Transactional
+    @Transactional // Might be Transactional is not very important here, since saving one table. To show the right place for this annotation in the project  
     public TaskDto save(final TaskDto taskDto) {
     	
     	if(taskDto == null) throw new IllegalArgumentException("The paremter is null");
@@ -67,10 +67,9 @@ public class TaskServiceImpl implements TaskService {
     	
     	
 	}
-    
-    
+     
     @Override
-    @Transactional
+    @Transactional // Might be Transactional is not very important here, since deleting from one table. To show the right place for this annotation in the project
     public void delete(final Long id) {
     	
     	if(id == null) throw new IllegalArgumentException("The paremter is null");

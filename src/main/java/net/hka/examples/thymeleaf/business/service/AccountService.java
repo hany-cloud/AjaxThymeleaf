@@ -11,17 +11,16 @@ import net.hka.examples.thymeleaf.domain.Account;
 
 public interface AccountService extends UserDetailsService {
 		
-	public AccountDto save(AccountDto accountDto, String role);
+	AccountDto save(AccountDto accountDto, String role);
 
 	@Override
-	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException;
+	UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException;
 	
-	public void signin(final AccountDto accountDto);
+	void signin(final AccountDto accountDto);
 	
-	public Optional<AccountDto> findOneByEmail(final String email);
+	Optional<AccountDto> findOneByEmail(final String email);
 	
-	public Optional<AccountDto> findById(final Long id);
+	Optional<AccountDto> findById(final Long id);
 	
-	public Account createUserAccount(final AccountDto accountDto);
-		
+	Account createUserAccount(final AccountDto accountDto);
 }
